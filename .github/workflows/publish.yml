@@ -1,0 +1,36 @@
+name: Publish
+
+# Builds and publishes to npm when a GitHub Release is published.
+# Uses npm Trusted Publishing (OIDC) — no npm token stored in the repo.
+# Configure the trusted publisher once at:
+#   https://www.npmjs.com/package/cloro/access  (Trusted Publisher → GitHub Actions)
+# pointing at this repo + workflow (publish.yml) and environment "npm".
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      id-token: write # required for Trusted Publishing + provenance
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+      # Trusted Publishing requires npm >= 11.5.1 (newer than the version
+      # bundled with setup-node).
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+      - name: Install
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Publish to npm
+        run: npm publish --provenance --access public
