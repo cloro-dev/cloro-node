@@ -171,9 +171,11 @@ await client.states(); // US states for location-targeted Google
 
 ## Links
 
-- Docs: <https://cloro.dev/docs>
-- API reference (OpenAPI): <https://cloro.dev/docs/api-reference/openapi.json>
-- Dashboard: <https://dashboard.cloro.dev/>
+- [cloro.dev](https://cloro.dev) — the hosted SERP + AI answer-engine API
+- [SERP API](https://cloro.dev/serp-api/) — the Google Search endpoint this SDK wraps
+- [Node & TypeScript guide](https://cloro.dev/integrations/javascript/) — quickstart, recipes, and production patterns
+- [Docs](https://cloro.dev/docs) and [API reference (OpenAPI)](https://cloro.dev/docs/api-reference/openapi.json)
+- [Pricing](https://cloro.dev/pricing/) · [Dashboard](https://dashboard.cloro.dev/)
 - Python SDK: [cloro](https://github.com/cloro-dev/cloro-python)
 
 ## License
