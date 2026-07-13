@@ -1,5 +1,5 @@
 {
-  "name": "cloro",
+  "name": "@cloro-dev/cloro",
   "version": "0.1.0",
   "description": "Official TypeScript/Node SDK for the cloro API — one API for Google Search and every AI answer engine (ChatGPT, Gemini, Perplexity, Copilot, Grok, AI Overview, AI Mode).",
   "keywords": [
@@ -44,6 +44,9 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "engines": {
     "node": ">=18"
   },

@@ -3,7 +3,7 @@ name: Publish
 # Builds and publishes to npm when a GitHub Release is published.
 # Uses npm Trusted Publishing (OIDC) — no npm token stored in the repo.
 # Configure the trusted publisher once at:
-#   https://www.npmjs.com/package/cloro/access  (Trusted Publisher → GitHub Actions)
+#   https://www.npmjs.com/package/@cloro-dev/cloro/access  (Trusted Publisher → GitHub Actions)
 # pointing at this repo + workflow (publish.yml) and environment "npm".
 
 on:

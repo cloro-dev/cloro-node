@@ -12,7 +12,7 @@ and both ESM and CommonJS builds.
 ## Installation
 
 ```bash
-npm install cloro
+npm install @cloro-dev/cloro
 ```
 
 Requires Node 18+ (uses the built-in `fetch`). Works with TypeScript, ESM, and
@@ -21,7 +21,7 @@ CommonJS.
 ## Quickstart
 
 ```ts
-import { Cloro } from "cloro";
+import { Cloro } from "@cloro-dev/cloro";
 
 const client = new Cloro({ apiKey: "sk_live_..." }); // or set CLORO_API_KEY
 
@@ -45,7 +45,7 @@ pass `apiKey`. Get a key (and 500 free credits) at
 <summary>CommonJS</summary>
 
 ```js
-const { Cloro } = require("cloro");
+const { Cloro } = require("@cloro-dev/cloro");
 
 const client = new Cloro({ apiKey: "sk_live_..." });
 client.monitor.chatgpt({ prompt: "...", country: "US" }).then((res) => {
@@ -139,7 +139,7 @@ const client = new Cloro({
 All errors subclass `CloroError`. HTTP failures map to status-specific types:
 
 ```ts
-import { Cloro, AuthenticationError, RateLimitError, CloroError } from "cloro";
+import { Cloro, AuthenticationError, RateLimitError, CloroError } from "@cloro-dev/cloro";
 
 try {
   await client.monitor.chatgpt({ prompt: "...", country: "US" });
