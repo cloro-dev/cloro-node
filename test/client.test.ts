@@ -2,6 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   AuthenticationError,
+  BadRequestError,
   Cloro,
   CloroError,
   RateLimitError,
@@ -96,6 +97,15 @@ describe("Cloro client", () => {
     expect(err).toBeInstanceOf(AuthenticationError);
     expect(err.statusCode).toBe(401);
     expect(String(err)).toContain("bad key");
+  });
+
+  it("maps 422 to BadRequestError", async () => {
+    const client = makeClient(() => json(422, { error: { message: "invalid task" } }));
+    const err = await client.asyncTasks
+      .createBatch([{ taskType: "CHATGPT", payload: { prompt: "x", country: "US" } }])
+      .catch((e) => e);
+    expect(err).toBeInstanceOf(BadRequestError);
+    expect(err.statusCode).toBe(422);
   });
 
   it("retries a 429 then succeeds", async () => {

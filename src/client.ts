@@ -34,6 +34,9 @@ const STATUS_MAP: Record<number, StatusErrorCtor> = {
   403: PermissionDeniedError,
   404: NotFoundError,
   409: ConflictError,
+  // The async task endpoints return 422 for schema validation failures and
+  // never 400, so both map to BadRequestError.
+  422: BadRequestError,
   429: RateLimitError,
 };
 
