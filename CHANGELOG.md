@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.2]
+
+### Changed
+
+- The default request timeout is 300 seconds, up from 60. A sync request can
+  run for several minutes, and the client retries on timeout.
+- Corrected the `ConflictError` comment: a 409 is a reused idempotency key.
+
 ## [0.1.1]
 
 ### Changed
