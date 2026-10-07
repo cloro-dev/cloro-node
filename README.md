@@ -129,7 +129,7 @@ Valid `taskType` values: `CHATGPT`, `GEMINI`, `PERPLEXITY`, `COPILOT`, `GROK`,
 const client = new Cloro({
   apiKey: "sk_live_...",
   baseUrl: "https://api.cloro.dev", // override if needed
-  timeout: 60_000, // per-request milliseconds
+  timeout: 300_000, // per-request milliseconds (the default)
   maxRetries: 2, // timeouts, connection errors, 429/5xx
 });
 ```

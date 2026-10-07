@@ -17,7 +17,7 @@ import { MonitorResource } from "./resources/monitor.js";
 import { VERSION } from "./version.js";
 
 const DEFAULT_BASE_URL = "https://api.cloro.dev";
-const DEFAULT_TIMEOUT = 60_000; // ms
+const DEFAULT_TIMEOUT = 300_000; // ms; a sync request can run for several minutes
 const DEFAULT_MAX_RETRIES = 2;
 
 type StatusErrorCtor = new (message: string, options?: APIStatusErrorInit) => APIStatusError;
@@ -51,7 +51,7 @@ export interface CloroOptions {
   apiKey?: string;
   /** Override the API base URL (default `https://api.cloro.dev`). */
   baseUrl?: string;
-  /** Per-request timeout in milliseconds (default 60000). */
+  /** Per-request timeout in milliseconds (default 300000). */
   timeout?: number;
   /** Retries for timeouts, connection errors, and 429/5xx (default 2). */
   maxRetries?: number;

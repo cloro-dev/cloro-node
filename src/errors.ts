@@ -58,7 +58,7 @@ export class PermissionDeniedError extends APIStatusError {}
 /** 404 — the requested resource does not exist. */
 export class NotFoundError extends APIStatusError {}
 
-/** 409 — the request conflicts with current state (e.g. concurrency limit). */
+/** 409 — the request conflicts with current state (e.g. a reused idempotency key). */
 export class ConflictError extends APIStatusError {}
 
 /** 429 — too many requests; retry after backing off. */
