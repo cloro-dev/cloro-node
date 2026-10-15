@@ -4,10 +4,6 @@ The official TypeScript/Node client for [**cloro**](https://cloro.dev) — one A
 for Google Search and every AI answer engine (ChatGPT, Gemini, Perplexity,
 Copilot, AI Overview, AI Mode). Real-time, structured JSON.
 
-> **Perplexity is temporarily unavailable.** The cloro API rejects requests to
-> it with a `400` (`MODEL_UNAVAILABLE`). These requests cost no credits. The
-> [changelog](https://cloro.dev/docs/changelog) will say when it is back.
-
 Use the SDK, or [just `curl` it](https://cloro.dev/docs) — same clean response
 either way. The SDK adds typed methods, sensible retries, and a polling helper
 for the async task queue so you don't hand-roll it. Ships with TypeScript types
