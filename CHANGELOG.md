@@ -4,6 +4,15 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0]
+
+### Removed
+
+- `client.monitor.grok()` and the `GROK` task type. This is a breaking change.
+  grok.com now shows a sign-up wall to all logged-out visitors before the first
+  answer. cloro uses logged-out sessions, so it cannot get Grok answers. The
+  API now rejects `/v1/monitor/grok` with a `400` (`MODEL_UNAVAILABLE`).
+
 ## [0.1.2]
 
 ### Changed

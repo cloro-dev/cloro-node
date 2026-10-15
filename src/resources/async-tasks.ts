@@ -15,7 +15,6 @@ export type TaskType =
   | "GEMINI"
   | "PERPLEXITY"
   | "COPILOT"
-  | "GROK"
   | "AIMODE"
   | "GOOGLE"
   | "GOOGLE_NEWS";
@@ -32,7 +31,7 @@ export interface AsyncTask {
 }
 
 export interface CreateTaskParams {
-  /** One of CHATGPT, GEMINI, PERPLEXITY, COPILOT, GROK, AIMODE, GOOGLE, GOOGLE_NEWS. */
+  /** One of CHATGPT, GEMINI, PERPLEXITY, COPILOT, AIMODE, GOOGLE, GOOGLE_NEWS. */
   taskType: TaskType | string;
   /** Provider-specific body, e.g. `{ prompt, country }` or `{ query, country }`. */
   payload: Record<string, unknown>;

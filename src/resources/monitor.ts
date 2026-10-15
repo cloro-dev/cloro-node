@@ -77,11 +77,6 @@ export class MonitorResource {
     return this.run("/v1/monitor/copilot", params);
   }
 
-  /** Monitor Grok. `POST /v1/monitor/grok`. */
-  grok(params: EngineParams): Promise<any> {
-    return this.run("/v1/monitor/grok", params);
-  }
-
   /** Monitor Google AI Mode. `POST /v1/monitor/aimode`. */
   aimode(params: EngineParams): Promise<any> {
     return this.run("/v1/monitor/aimode", params);

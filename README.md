@@ -2,7 +2,11 @@
 
 The official TypeScript/Node client for [**cloro**](https://cloro.dev) — one API
 for Google Search and every AI answer engine (ChatGPT, Gemini, Perplexity,
-Copilot, Grok, AI Overview, AI Mode). Real-time, structured JSON.
+Copilot, AI Overview, AI Mode). Real-time, structured JSON.
+
+> **Perplexity is temporarily unavailable.** The cloro API rejects requests to
+> it with a `400` (`MODEL_UNAVAILABLE`). These requests cost no credits. The
+> [changelog](https://cloro.dev/docs/changelog) will say when it is back.
 
 Use the SDK, or [just `curl` it](https://cloro.dev/docs) — same clean response
 either way. The SDK adds typed methods, sensible retries, and a polling helper
@@ -65,7 +69,6 @@ await client.monitor.chatgpt({ prompt: "...", country: "US" });
 await client.monitor.gemini({ prompt: "...", country: "US" });
 await client.monitor.perplexity({ prompt: "...", country: "US" });
 await client.monitor.copilot({ prompt: "...", country: "US" });
-await client.monitor.grok({ prompt: "...", country: "US" });
 await client.monitor.aimode({ prompt: "...", country: "US" }); // Google AI Mode
 
 await client.monitor.google({ query: "best crm", country: "US", pages: 1 });
@@ -120,8 +123,8 @@ Queue-wide status:
 await client.asyncTasks.status(); // queued / processing counts, concurrency usage
 ```
 
-Valid `taskType` values: `CHATGPT`, `GEMINI`, `PERPLEXITY`, `COPILOT`, `GROK`,
-`AIMODE`, `GOOGLE`, `GOOGLE_NEWS`.
+Valid `taskType` values: `CHATGPT`, `GEMINI`, `PERPLEXITY`, `COPILOT`, `AIMODE`,
+`GOOGLE`, `GOOGLE_NEWS`.
 
 ## Configuration
 
