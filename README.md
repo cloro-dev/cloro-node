@@ -1,10 +1,16 @@
 # cloro TypeScript / Node SDK
 
-The official TypeScript/Node client for [**cloro**](https://cloro.dev) — one API
-for Google Search and every AI answer engine (ChatGPT, Gemini, Perplexity,
-Copilot, AI Overview, AI Mode). Real-time, structured JSON.
+The official JS SDK for [**cloro**](https://cloro.dev), for TypeScript and Node.
+cloro is a SERP API with one API for Google Search and every AI answer engine
+(ChatGPT, Gemini, Perplexity, Copilot, AI Overview, AI Mode). Real-time,
+structured JSON.
 
-Use the SDK, or [just `curl` it](https://cloro.dev/docs) — same clean response
+cloro also has an official Python SDK,
+[`cloro` on PyPI](https://pypi.org/project/cloro/), and a hosted
+[MCP server for Claude, Cursor and ChatGPT](https://cloro.dev/integrations/mcp/),
+so an AI agent can call the same endpoints as tools.
+
+Use the SDK, or [just `curl` it](https://cloro.dev/docs): same clean response
 either way. The SDK adds typed methods, sensible retries, and a polling helper
 for the async task queue so you don't hand-roll it. Ships with TypeScript types
 and both ESM and CommonJS builds.
