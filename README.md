@@ -2,8 +2,7 @@
 
 The official JS SDK for [**cloro**](https://cloro.dev), for TypeScript and Node.
 cloro is a SERP API with one API for Google Search and every AI answer engine
-(ChatGPT, Gemini, Perplexity, Copilot, AI Overview, AI Mode). Real-time,
-structured JSON.
+(ChatGPT, Gemini, AI Overview, AI Mode). Real-time, structured JSON.
 
 cloro also has an official Python SDK,
 [`cloro` on PyPI](https://pypi.org/project/cloro/), and a hosted
@@ -69,8 +68,6 @@ Google Search and Google News take a `query`.
 ```ts
 await client.monitor.chatgpt({ prompt: "...", country: "US" });
 await client.monitor.gemini({ prompt: "...", country: "US" });
-await client.monitor.perplexity({ prompt: "...", country: "US" });
-await client.monitor.copilot({ prompt: "...", country: "US" });
 await client.monitor.aimode({ prompt: "...", country: "US" }); // Google AI Mode
 
 await client.monitor.google({ query: "best crm", country: "US", pages: 1 });
@@ -111,7 +108,7 @@ Batch up to 500 tasks in a single request (results preserve input order):
 ```ts
 const results = await client.asyncTasks.createBatch([
   { taskType: "CHATGPT", payload: { prompt: "q1", country: "US" } },
-  { taskType: "PERPLEXITY", payload: { prompt: "q2", country: "GB" } },
+  { taskType: "GEMINI", payload: { prompt: "q2", country: "GB" } },
 ]);
 for (const item of results) {
   if (item.success) await client.asyncTasks.wait(item.task.id);
@@ -125,8 +122,7 @@ Queue-wide status:
 await client.asyncTasks.status(); // queued / processing counts, concurrency usage
 ```
 
-Valid `taskType` values: `CHATGPT`, `GEMINI`, `PERPLEXITY`, `COPILOT`, `AIMODE`,
-`GOOGLE`, `GOOGLE_NEWS`.
+Valid `taskType` values: `CHATGPT`, `GEMINI`, `AIMODE`, `GOOGLE`, `GOOGLE_NEWS`.
 
 ## Configuration
 

@@ -67,16 +67,6 @@ export class MonitorResource {
     return this.run("/v1/monitor/gemini", params);
   }
 
-  /** Monitor Perplexity. `POST /v1/monitor/perplexity`. */
-  perplexity(params: EngineParams): Promise<any> {
-    return this.run("/v1/monitor/perplexity", params);
-  }
-
-  /** Monitor Microsoft Copilot. `POST /v1/monitor/copilot`. */
-  copilot(params: EngineParams): Promise<any> {
-    return this.run("/v1/monitor/copilot", params);
-  }
-
   /** Monitor Google AI Mode. `POST /v1/monitor/aimode`. */
   aimode(params: EngineParams): Promise<any> {
     return this.run("/v1/monitor/aimode", params);

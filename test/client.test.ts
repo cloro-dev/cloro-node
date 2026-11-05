@@ -49,6 +49,12 @@ describe("Cloro client", () => {
     expect(new Cloro({ fetch: (async () => json(200, {})) as FetchLike }).apiKey).toBe("sk_env");
   });
 
+  it("does not expose the discontinued Copilot and Perplexity engines", () => {
+    const client = makeClient(() => json(200, {}));
+    expect("copilot" in client.monitor).toBe(false);
+    expect("perplexity" in client.monitor).toBe(false);
+  });
+
   it("sends the request and parses the response for monitor.chatgpt", async () => {
     const seen: Record<string, unknown> = {};
     const client = makeClient((url, init) => {
