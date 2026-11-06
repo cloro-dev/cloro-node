@@ -1,23 +1,47 @@
 name: Publish
 
-# Builds and publishes to npm when a GitHub Release is published.
-# Uses npm Trusted Publishing (OIDC) — no npm token stored in the repo.
-# Configure the trusted publisher once at:
+# Publishes to npm when a merge to main changes the version in package.json,
+# then creates the vX.Y.Z tag and GitHub Release. A Release published by hand
+# also publishes, as before.
+# Uses npm Trusted Publishing (OIDC): no npm token is stored in the repo.
+# The trusted publisher is configured at:
 #   https://www.npmjs.com/package/@cloro-dev/cloro/access  (Trusted Publisher → GitHub Actions)
 # pointing at this repo + workflow (publish.yml) and environment "npm".
 
 on:
+  push:
+    branches: [main]
   release:
     types: [published]
   workflow_dispatch:
 
 jobs:
+  check:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      new: ${{ steps.v.outputs.new }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: v
+        run: |
+          version=$(node -p "require('./package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          if git ls-remote --exit-code --tags origin "refs/tags/v$version" > /dev/null; then
+            echo "new=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new=true" >> "$GITHUB_OUTPUT"
+          fi
+
   build-and-publish:
+    needs: check
+    if: always() && (github.event_name != 'push' || needs.check.outputs.new == 'true')
     runs-on: ubuntu-latest
     environment: npm
     permissions:
       id-token: write # required for Trusted Publishing + provenance
-      contents: read
+      contents: write # required to create the release
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -34,3 +58,8 @@ jobs:
         run: npm run build
       - name: Publish to npm
         run: npm publish --provenance --access public
+      - name: Create the GitHub release
+        if: github.event_name == 'push'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "v${{ needs.check.outputs.version }}" --target "$GITHUB_SHA" --title "v${{ needs.check.outputs.version }}" --generate-notes
