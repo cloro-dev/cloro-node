@@ -2,7 +2,7 @@
  * cloro — the official TypeScript/Node SDK.
  *
  * One API for Google Search and every AI answer engine (ChatGPT, Gemini,
- * AI Overview, AI Mode). Real-time, structured JSON.
+ * AI Overview, AI Mode, Bing AI Mode). Real-time, structured JSON.
  *
  * ```ts
  * import { Cloro } from "cloro";
@@ -18,6 +18,7 @@ export type { CloroOptions, RequestOptions, FetchLike } from "./client.js";
 export { MonitorResource } from "./resources/monitor.js";
 export type {
   EngineParams,
+  BingAiModeParams,
   GoogleParams,
   GoogleNewsParams,
   IncludeOptions,
