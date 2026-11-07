@@ -87,6 +87,31 @@ describe("Cloro client", () => {
     expect(seenUrl.endsWith("/v1/monitor/google")).toBe(true);
   });
 
+  it("sends monitor.bingAimode to the Bing AI Mode endpoint", async () => {
+    const seen: Record<string, unknown> = {};
+    const client = makeClient((url, init) => {
+      seen.url = url;
+      seen.body = JSON.parse(init.body as string);
+      return json(200, { success: true, result: { text: "hi", sources: [], citationPills: [] } });
+    });
+
+    const res = await client.monitor.bingAimode({
+      prompt: "hello",
+      country: "US",
+      state: "CA",
+      include: { markdown: true, html: true },
+    });
+
+    expect(res.result.citationPills).toEqual([]);
+    expect(seen.url).toBe("https://api.cloro.dev/v1/monitor/bing/aimode");
+    expect(seen.body).toEqual({
+      prompt: "hello",
+      country: "US",
+      state: "CA",
+      include: { markdown: true, html: true },
+    });
+  });
+
   it("drops undefined values from the body", async () => {
     let body = "";
     const client = makeClient((_url, init) => {
@@ -160,6 +185,20 @@ describe("async task queue", () => {
     });
     expect(task.id).toBe("t-1");
     expect(task.status).toBe("QUEUED");
+  });
+
+  it("create sends the BING_AIMODE task type", async () => {
+    let body: Record<string, unknown> = {};
+    const client = makeClient((_url, init) => {
+      body = JSON.parse(init.body as string);
+      return json(200, { success: true, task: { id: "t-2", taskType: "BING_AIMODE", status: "QUEUED" } });
+    });
+    const task = await client.asyncTasks.create({
+      taskType: "BING_AIMODE",
+      payload: { prompt: "x", country: "US" },
+    });
+    expect(body.taskType).toBe("BING_AIMODE");
+    expect(task.taskType).toBe("BING_AIMODE");
   });
 
   it("wait polls until COMPLETED", async () => {

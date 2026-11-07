@@ -2,7 +2,7 @@
 
 The official JS SDK for [**cloro**](https://cloro.dev), for TypeScript and Node.
 cloro is a SERP API with one API for Google Search and every AI answer engine
-(ChatGPT, Gemini, AI Overview, AI Mode). Real-time, structured JSON.
+(ChatGPT, Gemini, AI Overview, AI Mode, Bing AI Mode). Real-time, structured JSON.
 
 cloro also has an official Python SDK,
 [`cloro` on PyPI](https://pypi.org/project/cloro/), and a hosted
@@ -69,6 +69,7 @@ Google Search and Google News take a `query`.
 await client.monitor.chatgpt({ prompt: "...", country: "US" });
 await client.monitor.gemini({ prompt: "...", country: "US" });
 await client.monitor.aimode({ prompt: "...", country: "US" }); // Google AI Mode
+await client.monitor.bingAimode({ prompt: "...", country: "US" }); // Bing AI Mode
 
 await client.monitor.google({ query: "best crm", country: "US", pages: 1 });
 await client.monitor.googleNews({ query: "acme corp", country: "US" });
@@ -76,6 +77,23 @@ await client.monitor.googleNews({ query: "acme corp", country: "US" });
 
 Pass `include: { ... }` to request extra formats — `markdown`, `html`,
 `searchQueries`, `shopping`, and more, depending on the engine.
+
+Bing AI Mode accepts only `include: { markdown, html }`. The `html` value is a
+URL to the page that Bing shows. You can also set `state` to a two-letter US state code
+(only with `country: "US"`). The result has `text`, `sources`, and
+`citationPills`.
+
+```ts
+const bing = await client.monitor.bingAimode({
+  prompt: "best crm for startups",
+  country: "US",
+  state: "CA",
+  include: { markdown: true },
+});
+for (const pill of bing.result.citationPills) {
+  console.log(pill.position, pill.domain, pill.url);
+}
+```
 
 ## Async task queue
 
@@ -122,7 +140,8 @@ Queue-wide status:
 await client.asyncTasks.status(); // queued / processing counts, concurrency usage
 ```
 
-Valid `taskType` values: `CHATGPT`, `GEMINI`, `AIMODE`, `GOOGLE`, `GOOGLE_NEWS`.
+Valid `taskType` values: `CHATGPT`, `GEMINI`, `AIMODE`, `BING_AIMODE`, `GOOGLE`,
+`GOOGLE_NEWS`.
 
 ## Configuration
 
@@ -167,7 +186,8 @@ with `TaskFailedError` / `TaskTimeoutError` from the poller and
 ```ts
 await client.countries(); // supported countries
 await client.countries("chatgpt");
-await client.states(); // US states for location-targeted Google
+await client.countries("bing_aimode"); // countries for Bing AI Mode
+await client.states(); // US states for location targeting (Google, Bing AI Mode)
 ```
 
 ## Links

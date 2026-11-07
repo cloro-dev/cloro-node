@@ -12,6 +12,17 @@ export interface EngineParams {
   [key: string]: unknown;
 }
 
+/**
+ * Parameters for Bing AI Mode. `prompt` has a maximum of 3,500 characters
+ * after URL encoding. Non-Latin scripts get fewer characters.
+ */
+export interface BingAiModeParams extends EngineParams {
+  /** Two-letter US state code, for example `"CA"`. Use only with `country: "US"`. */
+  state?: string;
+  /** Set `markdown` or `html` to `true` to get these formats. */
+  include?: { markdown?: boolean; html?: boolean };
+}
+
 /** Parameters for Google Search (SERP). */
 export interface GoogleParams {
   query: string;
@@ -70,6 +81,11 @@ export class MonitorResource {
   /** Monitor Google AI Mode. `POST /v1/monitor/aimode`. */
   aimode(params: EngineParams): Promise<any> {
     return this.run("/v1/monitor/aimode", params);
+  }
+
+  /** Monitor Bing AI Mode. `POST /v1/monitor/bing/aimode`. */
+  bingAimode(params: BingAiModeParams): Promise<any> {
+    return this.run("/v1/monitor/bing/aimode", params);
   }
 
   // -- Google Search (query-based) ------------------------------------
