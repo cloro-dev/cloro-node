@@ -16,7 +16,8 @@ export type TaskType =
   | "AIMODE"
   | "BING_AIMODE"
   | "GOOGLE"
-  | "GOOGLE_NEWS";
+  | "GOOGLE_NEWS"
+  | "BING";
 
 /** A handle to a queued task. Returned by {@link AsyncTasksResource.create}. */
 export interface AsyncTask {
@@ -30,7 +31,7 @@ export interface AsyncTask {
 }
 
 export interface CreateTaskParams {
-  /** One of CHATGPT, GEMINI, AIMODE, BING_AIMODE, GOOGLE, GOOGLE_NEWS. */
+  /** One of CHATGPT, GEMINI, AIMODE, BING_AIMODE, GOOGLE, GOOGLE_NEWS, BING. */
   taskType: TaskType | string;
   /** Provider-specific body, e.g. `{ prompt, country }` or `{ query, country }`. */
   payload: Record<string, unknown>;

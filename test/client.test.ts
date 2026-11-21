@@ -112,6 +112,33 @@ describe("Cloro client", () => {
     });
   });
 
+  it("sends monitor.bing to the Bing Search endpoint", async () => {
+    const seen: Record<string, unknown> = {};
+    const client = makeClient((url, init) => {
+      seen.url = url;
+      seen.body = JSON.parse(init.body as string);
+      return json(200, {
+        success: true,
+        result: { organicResults: [], aioverview: { text: "hi", sources: [] } },
+      });
+    });
+
+    const res = await client.monitor.bing({
+      query: "best crm",
+      country: "US",
+      include: { html: true, aioverview: { markdown: true } },
+    });
+
+    expect(res.result.organicResults).toEqual([]);
+    expect(res.result.aioverview.text).toBe("hi");
+    expect(seen.url).toBe("https://api.cloro.dev/v1/monitor/bing");
+    expect(seen.body).toEqual({
+      query: "best crm",
+      country: "US",
+      include: { html: true, aioverview: { markdown: true } },
+    });
+  });
+
   it("drops undefined values from the body", async () => {
     let body = "";
     const client = makeClient((_url, init) => {
@@ -199,6 +226,20 @@ describe("async task queue", () => {
     });
     expect(body.taskType).toBe("BING_AIMODE");
     expect(task.taskType).toBe("BING_AIMODE");
+  });
+
+  it("create sends the BING task type", async () => {
+    let body: Record<string, unknown> = {};
+    const client = makeClient((_url, init) => {
+      body = JSON.parse(init.body as string);
+      return json(200, { success: true, task: { id: "t-3", taskType: "BING", status: "QUEUED" } });
+    });
+    const task = await client.asyncTasks.create({
+      taskType: "BING",
+      payload: { query: "x", country: "US" },
+    });
+    expect(body.taskType).toBe("BING");
+    expect(task.taskType).toBe("BING");
   });
 
   it("wait polls until COMPLETED", async () => {
