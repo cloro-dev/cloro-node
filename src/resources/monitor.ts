@@ -1,4 +1,4 @@
-/** Synchronous monitor endpoints — one call per AI engine or Google Search. */
+/** Synchronous monitor endpoints — one call per AI engine, Google Search or Bing Search. */
 import type { Cloro } from "../client.js";
 
 /** Extra output formats to request, e.g. `{ markdown: true, html: true }`. */
@@ -32,6 +32,23 @@ export interface GoogleParams {
   device?: string;
   pages?: number;
   include?: IncludeOptions;
+  [key: string]: unknown;
+}
+
+/**
+ * Parameters for Bing Search (SERP). `query` has a maximum of 3,500 characters
+ * after URL encoding. Non-Latin scripts get fewer characters. The country
+ * selects the Bing market. Bing Search has no `state`, `device` or `pages`.
+ */
+export interface BingParams {
+  query: string;
+  country: string;
+  /**
+   * `html: true` adds the results page as `html`. `aioverview: true` adds the
+   * Bing AI summary as `aioverview`. `aioverview: { markdown: true }` also adds
+   * the summary as markdown.
+   */
+  include?: { html?: boolean; aioverview?: boolean | { markdown?: boolean } };
   [key: string]: unknown;
 }
 
@@ -98,5 +115,12 @@ export class MonitorResource {
   /** Monitor Google News. `POST /v1/monitor/google/news`. */
   googleNews(params: GoogleNewsParams): Promise<any> {
     return this.run("/v1/monitor/google/news", params);
+  }
+
+  // -- Bing Search (query-based) --------------------------------------
+
+  /** Monitor Bing Search (SERP). `POST /v1/monitor/bing`. */
+  bing(params: BingParams): Promise<any> {
+    return this.run("/v1/monitor/bing", params);
   }
 }

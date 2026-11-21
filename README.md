@@ -1,8 +1,9 @@
 # cloro TypeScript / Node SDK
 
 The official JS SDK for [**cloro**](https://cloro.dev), for TypeScript and Node.
-cloro is a SERP API with one API for Google Search and every AI answer engine
-(ChatGPT, Gemini, AI Overview, AI Mode, Bing AI Mode). Real-time, structured JSON.
+cloro is a SERP API with one API for Google Search, Bing Search and every AI
+answer engine (ChatGPT, Gemini, AI Overview, AI Mode, Bing AI Mode). Real-time,
+structured JSON.
 
 cloro also has an official Python SDK,
 [`cloro` on PyPI](https://pypi.org/project/cloro/), and a hosted
@@ -63,7 +64,7 @@ client.monitor.chatgpt({ prompt: "...", country: "US" }).then((res) => {
 ## Engines
 
 Every engine is a method on `client.monitor`. AI engines take a `prompt`;
-Google Search and Google News take a `query`.
+Google Search, Google News and Bing Search take a `query`.
 
 ```ts
 await client.monitor.chatgpt({ prompt: "...", country: "US" });
@@ -73,6 +74,7 @@ await client.monitor.bingAimode({ prompt: "...", country: "US" }); // Bing AI Mo
 
 await client.monitor.google({ query: "best crm", country: "US", pages: 1 });
 await client.monitor.googleNews({ query: "acme corp", country: "US" });
+await client.monitor.bing({ query: "best crm", country: "US" }); // Bing Search
 ```
 
 Pass `include: { ... }` to request extra formats — `markdown`, `html`,
@@ -93,6 +95,25 @@ const bing = await client.monitor.bingAimode({
 for (const pill of bing.result.citationPills) {
   console.log(pill.position, pill.domain, pill.url);
 }
+```
+
+Bing Search returns the Bing results with the AI Overview. It accepts only
+`include: { html, aioverview }`. Set `html` to `true` to get the results page. Set `aioverview` to `true` to get the Bing AI
+summary as `aioverview`, or to `{ markdown: true }` to also get it as markdown.
+The result has `organicResults` and, when Bing shows a summary, `aioverview`,
+in the same shapes as Google Search. Bing Search has no `state`, `device` or
+`pages`. The country selects the Bing market.
+
+```ts
+const bing = await client.monitor.bing({
+  query: "best crm for startups",
+  country: "US",
+  include: { aioverview: { markdown: true } },
+});
+for (const r of bing.result.organicResults) {
+  console.log(r.position, r.link, r.title);
+}
+console.log(bing.result.aioverview?.markdown);
 ```
 
 ## Async task queue
@@ -141,7 +162,7 @@ await client.asyncTasks.status(); // queued / processing counts, concurrency usa
 ```
 
 Valid `taskType` values: `CHATGPT`, `GEMINI`, `AIMODE`, `BING_AIMODE`, `GOOGLE`,
-`GOOGLE_NEWS`.
+`GOOGLE_NEWS`, `BING`.
 
 ## Configuration
 
@@ -187,6 +208,7 @@ with `TaskFailedError` / `TaskTimeoutError` from the poller and
 await client.countries(); // supported countries
 await client.countries("chatgpt");
 await client.countries("bing_aimode"); // countries for Bing AI Mode
+await client.countries("bing"); // countries for Bing Search
 await client.states(); // US states for location targeting (Google, Bing AI Mode)
 ```
 
