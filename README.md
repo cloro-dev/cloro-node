@@ -100,7 +100,7 @@ for (const pill of bing.result.citationPills) {
 Bing Search returns the Bing results with the AI Overview. It accepts
 `include: { html, aioverview }`, `pages` and `first`. Set `html` to `true` to get the results page. Set `aioverview` to `true` to get the Bing AI
 summary as `aioverview`, or to `{ markdown: true }` to also get it as markdown.
-The result has `organicResults` and, when Bing shows a summary, `aioverview`,
+The result has `organicResults`, `ads` when the page has ads and, when Bing shows a summary, `aioverview`,
 in the same shapes as Google Search. `pages` (1 to 10) costs 2 credits for each
 page after the first. `first` is the result to start at (default 1). Bing shows
 its AI summary only on the first page. Bing Search has no `state` or `device`.

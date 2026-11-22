@@ -126,6 +126,8 @@ describe("Cloro client", () => {
     const res = await client.monitor.bing({
       query: "best crm",
       country: "US",
+      pages: 3,
+      first: 41,
       include: { html: true, aioverview: { markdown: true } },
     });
 
@@ -135,6 +137,8 @@ describe("Cloro client", () => {
     expect(seen.body).toEqual({
       query: "best crm",
       country: "US",
+      pages: 3,
+      first: 41,
       include: { html: true, aioverview: { markdown: true } },
     });
   });
