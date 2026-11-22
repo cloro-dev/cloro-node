@@ -43,6 +43,10 @@ export interface GoogleParams {
 export interface BingParams {
   query: string;
   country: string;
+  /** Number of results pages, 1 to 10. Each page after the first costs 2 credits. */
+  pages?: number;
+  /** The result to start at, from 1. Bing shows no AI Overview when it is more than 1. */
+  first?: number;
   /**
    * `html: true` adds the results page as `html`. `aioverview: true` adds the
    * Bing AI summary as `aioverview`. `aioverview: { markdown: true }` also adds
