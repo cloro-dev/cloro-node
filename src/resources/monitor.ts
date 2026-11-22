@@ -38,7 +38,7 @@ export interface GoogleParams {
 /**
  * Parameters for Bing Search (SERP). `query` has a maximum of 3,500 characters
  * after URL encoding. Non-Latin scripts get fewer characters. The country
- * selects the Bing market. Bing Search has no `state`, `device` or `pages`.
+ * selects the Bing market. Bing Search has no `state` or `device`.
  */
 export interface BingParams {
   query: string;
