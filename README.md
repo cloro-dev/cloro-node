@@ -1,9 +1,9 @@
 # cloro TypeScript / Node SDK
 
 The official JS SDK for [**cloro**](https://cloro.dev), for TypeScript and Node.
-cloro is a SERP API with one API for Google Search, Bing Search and every AI
-answer engine (ChatGPT, Gemini, AI Overview, AI Mode, Bing AI Mode). Real-time,
-structured JSON.
+cloro is the API for AI answers. It returns real-time, structured JSON from eight
+engines: ChatGPT, Google Search, Google News, Google AI Overview, Google AI Mode,
+Gemini, Bing Search and Bing AI Mode (Copilot Search in Bing).
 
 cloro also has an official Python SDK,
 [`cloro` on PyPI](https://pypi.org/project/cloro/), and a hosted

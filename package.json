@@ -1,7 +1,7 @@
 {
   "name": "@cloro-dev/cloro",
-  "version": "0.6.0",
-  "description": "Official TypeScript/Node SDK for the cloro API: one API for Google Search, Bing Search and every AI answer engine (ChatGPT, Gemini, AI Overview, AI Mode, Bing AI Mode).",
+  "version": "0.6.1",
+  "description": "Official TypeScript/Node SDK for cloro, the API for AI answers: ChatGPT, Google Search, Google News, Google AI Overview, Google AI Mode, Gemini, Bing Search and Bing AI Mode.",
   "keywords": [
     "cloro",
     "serp",
